@@ -1,0 +1,44 @@
+.parent {
+    display: grid;
+    grid-template: auto 1fr auto / auto 1fr auto;
+}
+
+app-header {
+    padding: 1rem;
+    font-size: large;
+    font-weight: bold;
+    grid-column: 1 / 4;
+    background-color: indigo;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+app-main {
+    grid-column: 2 / 3;
+    background-color: white;
+    color: rgb(12, 12, 12);
+    font-size: small;
+    padding: 10px;
+}
+
+app-left-sidebar {
+    grid-column: 1 / 2;
+    background-color: rgb(40, 0, 30);
+    color: white;
+    padding: 10px;
+}
+
+.right-side {
+    grid-column: 3 / 4;
+    background-color: rgb(60, 9, 47);
+    color: white;
+}
+
+app-footer {
+    grid-column: 1 / 4;
+    text-align: center;
+    background-color: indigo;
+    color: white;
+    padding: 10px;
+}
