@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-empty',
-  templateUrl: './empty.component.html',
-  styleUrls: ['./empty.component.css']
+  template: '<p>Home</p>',
 })
 export class EmptyComponent implements OnInit {
 
