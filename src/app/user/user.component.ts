@@ -6,10 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 export interface User {
+  id?: number;
   name: string;
   dob: string;
   gender: string;
-  action?: string
+  action?: string;
 }
 
 const USER_DATA: User[] = [];
@@ -36,7 +37,15 @@ export class UserComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers().subscribe((users: User[]) => {
-      this.dataSource = new MatTableDataSource<User>(users);
+      if(Array.isArray(users)) {
+        users.map((u: User, i:number) => {u.id = i;return u;});
+
+        this.userService.users = [...users];
+        this.dataSource = new MatTableDataSource<User>(users);
+      } else {
+        this.userService.users = [];
+        this.dataSource = new MatTableDataSource<User>([]);
+      }
     },(err) => {
       console.log("Error: ", err);
     });
@@ -67,25 +76,38 @@ export class UserComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      // if(result.event == 'Add'){
-      //   this.addRowData(result.data);
-      // }else if(result.event == 'Update'){
-      //   this.updateRowData(result.data);
-      // }else if(result.event == 'Delete'){
-      //   this.deleteRowData(result.data);
-      // }
+      if(result) {
+        if(result.event == 'Add'){
+          this.addRowData(result.data);
+        }else if(result.event == 'Update'){
+          this.updateRowData(result.data);
+        }else if(result.event == 'Delete'){
+          this.deleteRowData(result.data);
+        }
+      }
     });
   }
 
-  addRowData(row_obj:any){
-
+  addRowData(row_obj:User){
+    this.userService.addUser(row_obj).subscribe((users: User[]) => {
+      this.getUsers();
+    },(err) => {
+      console.log("Error: ", err);
+    });
   }
-  updateRowData(row_obj:any){
-    
+  updateRowData(row_obj:User){
+    this.userService.updateUser(row_obj).subscribe((users: User[]) => {
+      this.getUsers();
+    },(err) => {
+      console.log("Error: ", err);
+    });
   }
-  deleteRowData(row_obj:any){
-
+  deleteRowData(row_obj:User){
+    this.userService.deleteUser(row_obj).subscribe((users: User[]) => {
+      this.getUsers();
+    },(err) => {
+      console.log("Error: ", err);
+    });
   }
 
 }
