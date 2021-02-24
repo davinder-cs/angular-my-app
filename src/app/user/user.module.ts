@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -23,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
     MatTableModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatProgressBarModule,
     UserRoutingModule,
     FormsModule,
     MatFormFieldModule,

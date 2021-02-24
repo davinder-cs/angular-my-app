@@ -4,6 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { flatten } from '@angular/compiler';
 
 export interface User {
   id?: number;
@@ -27,7 +28,14 @@ export class UserComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  displayedColumns: string[] = ['select', 'name', 'dob', 'gender', 'action'];
+  isLoading: boolean = false;
+  displayedColumns: string[] = [
+    // 'select', 
+    'name', 
+    'dob', 
+    'gender', 
+    'action'
+  ];
   dataSource = new MatTableDataSource<User>(USER_DATA);
   selection = new SelectionModel<User>(true, []);
 
@@ -36,7 +44,9 @@ export class UserComponent implements OnInit {
   }
 
   getUsers(): void {
+    this.isLoading = true;
     this.userService.getUsers().subscribe((users: User[]) => {
+      this.isLoading = false;
       if(Array.isArray(users)) {
         users.map((u: User, i:number) => {u.id = i;return u;});
 
@@ -47,6 +57,7 @@ export class UserComponent implements OnInit {
         this.dataSource = new MatTableDataSource<User>([]);
       }
     },(err) => {
+      this.isLoading = false;
       console.log("Error: ", err);
     });
   }
@@ -89,6 +100,7 @@ export class UserComponent implements OnInit {
   }
 
   addRowData(row_obj:User){
+    this.isLoading = true;
     this.userService.addUser(row_obj).subscribe((users: User[]) => {
       this.getUsers();
     },(err) => {
@@ -96,6 +108,7 @@ export class UserComponent implements OnInit {
     });
   }
   updateRowData(row_obj:User){
+    this.isLoading = true;
     this.userService.updateUser(row_obj).subscribe((users: User[]) => {
       this.getUsers();
     },(err) => {
@@ -103,6 +116,7 @@ export class UserComponent implements OnInit {
     });
   }
   deleteRowData(row_obj:User){
+    this.isLoading = true;
     this.userService.deleteUser(row_obj).subscribe((users: User[]) => {
       this.getUsers();
     },(err) => {

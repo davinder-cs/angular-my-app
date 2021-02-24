@@ -1,6 +1,7 @@
 <router-outlet></router-outlet>
 <button mat-button (click)="openDialog('Add')" mat-flat-button color="primary">Add User</button>
 <hr>
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
