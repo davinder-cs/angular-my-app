@@ -56,7 +56,10 @@ export class UserComponent implements OnInit {
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  openDialog(action:string, obj:User) {
+  openDialog(action:string, obj?:User) {
+    if(obj === undefined) {
+      obj = {name:'', gender:'', dob:''};
+    }
     obj.action = action;
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '250px',

@@ -1,8 +1,16 @@
-<h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
+<h1 mat-dialog-title><strong>{{action}} User</strong></h1>
 <div mat-dialog-content>
-    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-        <input placeholder="{{action}} Name" matInput [(ngModel)]="local_data.name">
-    </mat-form-field>
+    <div *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-form-field>
+            <input placeholder="Name" matInput [(ngModel)]="local_data.name">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="DOB" matInput [(ngModel)]="local_data.dob">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="Gender" matInput [(ngModel)]="local_data.gender">
+        </mat-form-field>
+    </div>
     <ng-template #elseTemplate>
         Sure to delete <b>{{local_data.name}}</b>?
     </ng-template>
