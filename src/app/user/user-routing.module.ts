@@ -6,11 +6,7 @@ const routes:Routes = [
   {
     path: '',
     component: UserComponent
-  },
-  // {
-  //   path: 'user-add',
-  //   component: UserComponent
-  // }
+  }
 ]
 
 @NgModule({
